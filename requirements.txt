@@ -1,0 +1,10 @@
+qrcode
+docxtpl
+fastapi
+uvicorn
+cv2
+docx
+cv2
+pdf2image
+typing
+json
