@@ -30,41 +30,45 @@ async def encode_qr(request: Request):
 
     img = qr.make_image(fill_color="black", back_color="white")
     img.save("vutrian.png")
-    report_template = "du_thao_co_phan.docx"
-    report_output = "giay_de_nghi2.docx"
-    doc = DocxTemplate(report_template)
+    if body["common_name_uppercase"].find("CỔ PHẦN")!=-1:
+        report_template = "du_thao_co_phan.docx"
+        report_output = "giay_de_nghi2.docx"
+        doc = DocxTemplate(report_template)
 
-    #print(body)
-    context_to_load = {
-        "common_company_name":body["common_name_uppercase"],
-        "common_company_en_name":body["common_name_en_uppercase"],
-        "common_company_summary_name":body["common_name_summary_uppercase"],
-        "address":body["address_addr"],
-        "phone_number":body["address_ct_phone"],
-        "fax":body["address_ct_fax"],
-        "email":body["address_ct_email"],
-        "web_site":body["address_ct_website"],
-        "capital":body["capital_authorized_capital"],
-        "capital_char":body["capital_authorized_capital_char"],
-        "share":body["share_denominations_share"],
-        "share_amount":body["share_denominations_common_amount"],
-        "dd_name":body["actor_represent_name"],
-        "dd_nation":body["actor_represent_nation"],
-        "dd_nationality":body["actor_represent_nationality"],
-        "dd_dob":body["actor_represent_dob"],
-        "dd_gender":body["actor_represent_gender"],
-        "dd_cv":body["actor_represent_title_2"],
-        "dob":body["actor_represent_dob"],
-        "legal_type":body["actor_represent_personal_legal_paper_type_2"],
-        "legal_number":body["actor_represent_personal_legal_paper_number"],
-        "legal_date":body['actor_represent_personal_legal_paper_date'],
-        "legal_place":body['actor_represent_personal_legal_paper_place'],
-        "current_addr" : body['actor_represent_current_addr'],
-        "resident_addr" : body['actor_represent_resident_addr']
-    }
-
+        #print(body)
+        context_to_load = {
+            "common_company_name":body["common_name_uppercase"],
+            "common_company_en_name":body["common_name_en_uppercase"],
+            "common_company_summary_name":body["common_name_summary_uppercase"],
+            "address":body["address_addr"],
+            "phone_number":body["address_ct_phone"],
+            "fax":body["address_ct_fax"],
+            "email":body["address_ct_email"],
+            "web_site":body["address_ct_website"],
+            "capital":body["capital_authorized_capital"],
+            "capital_char":body["capital_authorized_capital_char"],
+            "share":body["share_denominations_share"],
+            "share_amount":body["share_denominations_common_amount"],
+            "dd_name":body["actor_represent_name"],
+            "dd_nation":body["actor_represent_nation"],
+            "dd_nationality":body["actor_represent_nationality"],
+            "dd_dob":body["actor_represent_dob"],
+            "dd_gender":body["actor_represent_gender"],
+            "dd_cv":body["actor_represent_title_2"],
+            "dob":body["actor_represent_dob"],
+            "legal_type":body["actor_represent_personal_legal_paper_type_2"],
+            "legal_number":body["actor_represent_personal_legal_paper_number"],
+            "legal_date":body['actor_represent_personal_legal_paper_date'],
+            "legal_place":body['actor_represent_personal_legal_paper_place'],
+            "current_addr" : body['actor_represent_current_addr'],
+            "resident_addr" : body['actor_represent_resident_addr']
+        }
+    elif body["common_name_uppercase"].find("TNHH MỘT")!=-1:
+        report_template = "ban_du_thao_cong_ty_tnhh_mot_thanh_vien.docx"
+        report_output = "giay_de_nghi2.docx"
+        doc = DocxTemplate(report_template)
+        context_to_load = body
     context_to_load['qr_code'] = InlineImage(doc, "vutrian.png",width=Mm(35))
-
 
     # load the context to the word template
     doc.render(context_to_load)
