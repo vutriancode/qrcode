@@ -63,7 +63,7 @@ async def encode_qr(request: Request):
         "resident_addr" : body['actor_represent_resident_addr']
     }
 
-    context_to_load['qr_code'] = InlineImage(doc, "vutrian.png",width=Mm(35gi))
+    context_to_load['qr_code'] = InlineImage(doc, "vutrian.png",width=Mm(35))
 
 
     # load the context to the word template
