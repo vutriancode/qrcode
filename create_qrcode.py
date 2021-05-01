@@ -46,7 +46,7 @@ async def encode_qr(request: Request):
         "web_site":body["address_ct_website"],
         "capital":body["capital_authorized_capital"],
         "capital_char":body["capital_authorized_capital_char"],
-        "share":body["share_denominations_common_amount"],
+        "share":body["share_denominations_share"],
         "share_amount":body["share_denominations_common_amount"],
         "dd_name":body["actor_represent_name"],
         "dd_nation":body["actor_represent_nation"],
