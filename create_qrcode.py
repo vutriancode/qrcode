@@ -68,7 +68,12 @@ async def encode_qr(request: Request):
         report_output = "giay_de_nghi2.docx"
         doc = DocxTemplate(report_template)
         context_to_load = body
-    context_to_load['qr_code'] = InlineImage(doc, "vutrian.png",width=Mm(35))
+    elif body["common_name_uppercase"].find("TNHH HAI")!=-1:
+        report_template = "ban_du_thao_cty_tnhh_2_tv.docx"
+        report_output = "giay_de_nghi2.docx"
+        doc = DocxTemplate(report_template)
+        context_to_load = body
+    context_to_load['qr_code'] = InlineImage(doc,"vutrian.png",width=Mm(35))
 
     # load the context to the word template
     doc.render(context_to_load)
