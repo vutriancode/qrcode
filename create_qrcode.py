@@ -53,7 +53,7 @@ async def encode_qr(request: Request):
         doc.render(context_to_load)
         doc.save(report_output)
         return FileResponse("giay_de_nghi2.docx")
-    except(e):
+    except:
         pass
 
 @app.post("qr_decode")
