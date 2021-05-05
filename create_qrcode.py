@@ -30,31 +30,28 @@ async def encode_qr(request: Request):
 
     img = qr.make_image(fill_color="black", back_color="white")
     img.save("vutrian.png")
-    print(body["company_type"])
-    try:
-        if body["company_type"]==1:
-            report_template = "du_thao_co_phan.docx"
-            report_output = "giay_de_nghi2.docx"
-            doc = DocxTemplate(report_template)
-            context_to_load = body
-        elif body["company_type"]==4:
-            report_template = "ban_du_thao_cong_ty_tnhh_mot_thanh_vien.docx"
-            report_output = "giay_de_nghi2.docx"
-            doc = DocxTemplate(report_template)
-            context_to_load = body
-        elif body["company_type"]==5:
-            report_template = "ban_du_thao_cty_tnhh_2_tv.docx"
-            report_output = "giay_de_nghi2.docx"
-            doc = DocxTemplate(report_template)
-            context_to_load = body
-        context_to_load['qr_code'] = InlineImage(doc,"vutrian.png",width=Mm(35))
+    if body["company_type"]==2:
+        report_template = "du_thao_co_phan.docx"
+        report_output = "giay_de_nghi2.docx"
+        doc = DocxTemplate(report_template)
+        context_to_load = body
+    elif body["company_type"]==4:
+        report_template = "ban_du_thao_cong_ty_tnhh_mot_thanh_vien.docx"
+        report_output = "giay_de_nghi2.docx"
+        doc = DocxTemplate(report_template)
+        context_to_load = body
+    elif body["company_type"]==5:
+        report_template = "ban_du_thao_cty_tnhh_2_tv.docx"
+        report_output = "giay_de_nghi2.docx"
+        doc = DocxTemplate(report_template)
+        context_to_load = body
+    context_to_load['qr_code'] = InlineImage(doc,"vutrian.png",width=Mm(35))
 
-        # load the context to the word template
-        doc.render(context_to_load)
-        doc.save(report_output)
-        return FileResponse("giay_de_nghi2.docx")
-    except:
-        pass
+    # load the context to the word template
+    doc.render(context_to_load)
+    doc.save(report_output)
+    return FileResponse("giay_de_nghi2.docx")
+
 
 @app.post("qr_decode")
 def decode_qr(request: Request,uploaded_files: List[UploadFile] = File(...)):
