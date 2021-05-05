@@ -30,7 +30,7 @@ async def encode_qr(request: Request):
 
     img = qr.make_image(fill_color="black", back_color="white")
     img.save("vutrian.png")
-    print(body)
+    print(body["company_type"])
     try:
         if body["company_type"]==1:
             report_template = "du_thao_co_phan.docx"
